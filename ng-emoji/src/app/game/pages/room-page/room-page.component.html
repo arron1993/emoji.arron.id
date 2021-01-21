@@ -1,0 +1,6 @@
+<form #setUsernameForm="ngForm" (ngSubmit)="onSubmit(setUsernameForm)">
+  <input ngModel type="text" name="username" />
+  <button>Join</button>
+</form>
+
+<app-user-list [roomId]="roomId"></app-user-list>
