@@ -19,13 +19,14 @@ export class RoomPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.setupSub();
-    this.route.params.subscribe(params => {
-      this.roomId = params.roomId;    
-    })
+    
   }
 
   onSubmit(form) {
-    this.rs.join(this.roomId, form.value.username)
+    this.route.params.subscribe(params => {
+      this.roomId = params.roomId;    
+      this.rs.join(this.roomId, form.value.username)
+    })
   }
 
   setupSub() {    

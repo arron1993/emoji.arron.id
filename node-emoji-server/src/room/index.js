@@ -11,6 +11,10 @@ class Room {
   addClient(username) {
     this.clients.add(username);
   }
+
+  removeClient(username) {
+    this.clients.delete(username);
+  }
 }
 
 module.exports.Room = Room;
