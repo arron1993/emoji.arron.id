@@ -24,7 +24,7 @@ export class RoomService {
   }
 
   onJoinedRoom(): Observable<any> {
-    return this.ss.on("joinedRoom")
+    return this.ss.on("onJoinedRoom")
   }
 
   getUserList(roomId) {

@@ -1,8 +1,10 @@
 const app = require("express")();
 const http = require("http").Server(app);
-const { Room } = require("./room");
+
 const { v4: uuidv4 } = require("uuid");
 
+const { Room } = require("./room");
+const { emitOnJoinedRoom, emitOnGetUserList } = require("./events");
 const io = require("socket.io")(http, {
   cors: {
     origin: "http://localhost:4200",
@@ -33,20 +35,14 @@ io.on("connection", (socket) => {
 
     room.addClient(data.username);
 
-    console.log(room.getClients());
+    emitOnJoinedRoom(io, data);
 
-    io.to(data.roomId).emit("joinedRoom", {
-      roomId: data.roomId,
-      message: `User ${data.username} joined room`,
-    });
-
-    io.to(data.roomId).emit("onGetUserList", { users: room.getClients() });
+    emitOnGetUserList(io, room);
   });
 
   socket.on("getUserList", (data) => {
     const room = rooms[data.roomId] || new Room(data.roomId);
-    usernames = room.getClients();
-    io.to(data.roomId).emit("onGetUserList", { users: usernames });
+    emitOnGetUserList(io, room);
   });
 
   socket.on("disconnecting", () => {
