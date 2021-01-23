@@ -4,7 +4,9 @@ const http = require("http").Server(app);
 const { v4: uuidv4 } = require("uuid");
 
 const { Room } = require("./room");
+const { Client } = require("./client");
 const { emitOnJoinedRoom, emitOnGetUserList } = require("./events");
+
 const io = require("socket.io")(http, {
   cors: {
     origin: "http://localhost:4200",
@@ -27,14 +29,14 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", (data) => {
     console.log("User joined room", socket.id, data.roomId);
     socket.join(data.roomId);
-    socket.username = data.username;
+    client = new Client(socket.id, data.username);
     const room = rooms[data.roomId] || new Room(data.roomId);
 
     if (rooms[data.roomId] === undefined) {
       rooms[data.roomId] = room;
     }
 
-    room.addClient(data.username);
+    room.addClient(client);
 
     emitOnJoinedRoom(io, data);
     emitOnGetUserList(io, room);
@@ -50,7 +52,7 @@ io.on("connection", (socket) => {
     for (const roomId of socket.rooms) {
       room = rooms[roomId];
       if (room) {
-        room.removeClient(socket.username);
+        room.removeClient(socket.id);
         emitOnGetUserList(io, room);
       }
     }

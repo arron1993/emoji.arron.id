@@ -1,6 +1,8 @@
-<form #setUsernameForm="ngForm" (ngSubmit)="onSubmit(setUsernameForm)">
-  <input ngModel type="text" name="username" />
-  <button>Join</button>
-</form>
+<ng-container *ngIf="!username">
+  <form #setUsernameForm="ngForm" (ngSubmit)="onSubmit(setUsernameForm)">
+    <input ngModel type="text" name="username" />
+    <button>Join</button>
+  </form>
+</ng-container>
 
 <app-user-list [roomId]="roomId"></app-user-list>

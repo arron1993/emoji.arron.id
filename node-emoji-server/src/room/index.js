@@ -8,12 +8,15 @@ class Room {
     return Array.from(this.clients);
   }
 
-  addClient(username) {
-    this.clients.add(username);
+  addClient(client) {
+    this.clients.add(client);
   }
 
-  removeClient(username) {
-    this.clients.delete(username);
+  removeClient(socketId) {
+    const clients = [...this.clients].filter(
+      (client) => client.socketId != socketId
+    );
+    this.clients = new Set(clients);
   }
 }
 

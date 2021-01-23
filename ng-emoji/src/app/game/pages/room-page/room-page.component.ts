@@ -11,6 +11,7 @@ import { RoomService } from '../../services/room.service';
 export class RoomPageComponent implements OnInit {
 
   roomId: number;
+  username: string;
   sub: Subscription;
 
   constructor(
@@ -19,12 +20,12 @@ export class RoomPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.setupSub();
-    
   }
 
   onSubmit(form) {
     this.route.params.subscribe(params => {
-      this.roomId = params.roomId;    
+      this.roomId = params.roomId;
+      this.username = form.value.username;
       this.rs.join(this.roomId, form.value.username)
     })
   }
