@@ -5,10 +5,14 @@ function emitOnJoinedRoom(io, data) {
   });
 }
 
-function emitOnGetUserList(io, room) {
-  console.log("emitOnGetUserList");
-  io.to(room.id).emit("onGetUserList", { users: room.getClients() });
+function emitUpdateUserList(io, room) {
+  io.to(room.id).emit("updateUserList", { users: room.getClients() });
+}
+
+function emitStartGame(io, room) {
+  io.to(room.id).emit("startGame");
 }
 
 exports.emitOnJoinedRoom = emitOnJoinedRoom;
-exports.emitOnGetUserList = emitOnGetUserList;
+exports.emitUpdateUserList = emitUpdateUserList;
+exports.emitStartGame = emitStartGame;

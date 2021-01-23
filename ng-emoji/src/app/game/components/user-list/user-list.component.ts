@@ -16,7 +16,7 @@ export class UserListComponent implements OnInit {
   constructor(private rs: RoomService) { }
 
   ngOnInit(): void {
-    this.userSubscription = this.rs.onGetUserList().subscribe(resp => {
+    this.userSubscription = this.rs.onUpdateUserList().subscribe(resp => {
       console.log(resp);
       this.users = resp.users;
     })    

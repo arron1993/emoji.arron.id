@@ -12,14 +12,16 @@ export class RoomPageComponent implements OnInit {
 
   roomId: number;
   username: string;
-  sub: Subscription;
+  joinedRoomSub: Subscription;
+  startGameSub: Subscription;
 
+  gameStarted = false;
   constructor(
     private rs: RoomService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.setupSub();
+    this.setupSubs();
   }
 
   onSubmit(form) {
@@ -30,9 +32,14 @@ export class RoomPageComponent implements OnInit {
     })
   }
 
-  setupSub() {    
-    this.sub = this.rs.onJoinedRoom().subscribe(resp => {
+  setupSubs() {    
+    this.joinedRoomSub = this.rs.onJoinedRoom().subscribe(resp => {
       console.log(resp);
+    })
+
+    this.startGameSub = this.rs.onStartGame().subscribe(resp => {
+      console.log("start game")
+      this.gameStarted = true;
     })
   }
 }

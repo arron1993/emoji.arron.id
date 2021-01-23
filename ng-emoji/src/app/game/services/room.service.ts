@@ -31,7 +31,15 @@ export class RoomService {
     this.ss.emit("getUserList");
   }
 
-  onGetUserList(): Observable<any> {
-    return this.ss.on("onGetUserList")
+  onUpdateUserList(): Observable<any> {
+    return this.ss.on("updateUserList")
+  }
+
+  readyUp() {
+    this.ss.emit("readyUp")
+  }
+
+  onStartGame(): Observable<any> {
+    return this.ss.on("startGame");
   }
 }

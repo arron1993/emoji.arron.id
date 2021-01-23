@@ -6,10 +6,11 @@ import { CreateRoomPageComponent } from './pages/create-room-page/create-room-pa
 import { RoomPageComponent } from './pages/room-page/room-page.component';
 import { FormsModule } from '@angular/forms';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { ReadyUpButtonComponent } from './components/ready-up-button/ready-up-button.component';
 
 
 @NgModule({
-  declarations: [CreateRoomPageComponent, RoomPageComponent, UserListComponent],
+  declarations: [CreateRoomPageComponent, RoomPageComponent, UserListComponent, ReadyUpButtonComponent],
   imports: [
     CommonModule,
     FormsModule,
