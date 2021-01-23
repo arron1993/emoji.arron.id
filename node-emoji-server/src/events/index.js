@@ -10,7 +10,7 @@ function emitUpdateUserList(io, room) {
 }
 
 function emitStartGame(io, room) {
-  io.to(room.id).emit("startGame");
+  io.to(room.id).emit("startGame", { round: room.rounds[0] });
 }
 
 exports.emitOnJoinedRoom = emitOnJoinedRoom;

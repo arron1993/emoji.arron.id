@@ -3,8 +3,10 @@ const http = require("http").Server(app);
 
 const { v4: uuidv4 } = require("uuid");
 
-const { Room } = require("./room");
-const { Client } = require("./client");
+const { Room } = require("./classes/room/room");
+const { Client } = require("./classes/client/client");
+const { Round } = require("./classes/round/round");
+
 const {
   emitOnJoinedRoom,
   emitUpdateUserList,
@@ -68,6 +70,7 @@ io.on("connection", (socket) => {
 
     if (allReady) {
       console.log("all ready");
+      room.rounds.push(new Round());
       emitStartGame(io, room);
     }
   });

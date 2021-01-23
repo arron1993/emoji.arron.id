@@ -15,7 +15,8 @@ export class RoomPageComponent implements OnInit {
   joinedRoomSub: Subscription;
   startGameSub: Subscription;
 
-  gameStarted = false;
+  currentRound = null;
+
   constructor(
     private rs: RoomService,
     private route: ActivatedRoute) { }
@@ -38,8 +39,8 @@ export class RoomPageComponent implements OnInit {
     })
 
     this.startGameSub = this.rs.onStartGame().subscribe(resp => {
-      console.log("start game")
-      this.gameStarted = true;
+      this.currentRound = resp.round;
+      
     })
   }
 }

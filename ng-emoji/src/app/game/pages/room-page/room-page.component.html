@@ -7,4 +7,6 @@
 
 <app-user-list [roomId]="roomId"></app-user-list>
 
-<div *ngIf="gameStarted">Game Started...</div>
+<div *ngIf="currentRound">
+  {{ currentRound.word }}
+</div>

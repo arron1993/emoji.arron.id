@@ -2,6 +2,8 @@ class Room {
   constructor(roomId) {
     this.id = roomId;
     this.clients = new Set();
+
+    this.rounds = [];
   }
 
   getClients() {
