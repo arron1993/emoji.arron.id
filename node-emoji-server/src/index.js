@@ -74,6 +74,10 @@ io.on("connection", (socket) => {
     }
   });
 
+  socket.on("updateAnswer", (answer) => {
+    console.log("updateAnswer", answer);
+  });
+
   socket.on("disconnecting", () => {
     console.log("A user disconnected", socket.rooms);
     for (const roomId of socket.rooms) {

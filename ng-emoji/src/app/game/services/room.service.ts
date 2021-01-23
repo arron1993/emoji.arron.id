@@ -27,7 +27,7 @@ export class RoomService {
     return this.ss.on("onJoinedRoom")
   }
 
-  getUserList(roomId) {
+  getUserList() {
     this.ss.emit("getUserList");
   }
 
@@ -45,5 +45,9 @@ export class RoomService {
 
   onRoundTimerUpdate(): Observable<any> {
     return this.ss.on("updateRoundTimer");
+  }
+
+  updateAnswer(answer) {
+    this.ss.emit("updateAnswer", answer)
   }
 }

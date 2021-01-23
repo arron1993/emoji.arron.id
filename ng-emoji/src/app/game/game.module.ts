@@ -7,10 +7,10 @@ import { RoomPageComponent } from './pages/room-page/room-page.component';
 import { FormsModule } from '@angular/forms';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ReadyUpButtonComponent } from './components/ready-up-button/ready-up-button.component';
-
+import { EmojiKeyboardComponent } from './components/emoji-keyboard/emoji-keyboard.component';
 
 @NgModule({
-  declarations: [CreateRoomPageComponent, RoomPageComponent, UserListComponent, ReadyUpButtonComponent],
+  declarations: [CreateRoomPageComponent, RoomPageComponent, UserListComponent, ReadyUpButtonComponent, EmojiKeyboardComponent],
   imports: [
     CommonModule,
     FormsModule,

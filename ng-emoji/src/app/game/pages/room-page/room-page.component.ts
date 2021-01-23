@@ -9,7 +9,7 @@ import { RoomService } from '../../services/room.service';
   styleUrls: ['./room-page.component.scss']
 })
 export class RoomPageComponent implements OnInit {
-
+  answer = "";
   roomId: number;
   username: string;
   joinedRoomSub: Subscription;
@@ -48,5 +48,15 @@ export class RoomPageComponent implements OnInit {
     this.timerSub = this.rs.onRoundTimerUpdate().subscribe(resp => {
       this.timer = resp.time;
     })
+  }
+
+  updateAnswer() {
+    this.rs.updateAnswer(this.answer);
+    
+  }
+
+  addToAnswer(emoji) {
+    this.answer += emoji;
+    this.updateAnswer();
   }
 }

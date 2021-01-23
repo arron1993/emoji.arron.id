@@ -1,0 +1,16 @@
+<div>
+  <div>
+    <button
+      (click)="selectedCategory = emoji.key"
+      *ngFor="let emoji of emojies | keyvalue"
+    >
+      {{ emoji.key }}
+    </button>
+  </div>
+  <button
+    (click)="select(emoji)"
+    *ngFor="let emoji of emojies[selectedCategory]"
+  >
+    {{ emoji }}
+  </button>
+</div>

@@ -14,3 +14,11 @@
 <div *ngIf="timer > 0">
   {{ timer }}
 </div>
+
+<input
+  [(ngModel)]="answer"
+  type="text"
+  name="answer"
+  (ngModelChange)="updateAnswer()"
+/>
+<app-emoji-keyboard (emoji)="addToAnswer($event)"></app-emoji-keyboard>
