@@ -14,8 +14,11 @@ export class RoomPageComponent implements OnInit {
   username: string;
   joinedRoomSub: Subscription;
   startGameSub: Subscription;
+  timerSub: Subscription;
 
   currentRound = null;
+
+  timer = 0;
 
   constructor(
     private rs: RoomService,
@@ -40,7 +43,10 @@ export class RoomPageComponent implements OnInit {
 
     this.startGameSub = this.rs.onStartGame().subscribe(resp => {
       this.currentRound = resp.round;
-      
+    })
+
+    this.timerSub = this.rs.onRoundTimerUpdate().subscribe(resp => {
+      this.timer = resp.time;
     })
   }
 }

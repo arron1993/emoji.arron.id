@@ -5,7 +5,6 @@ const { v4: uuidv4 } = require("uuid");
 
 const { Room } = require("./classes/room/room");
 const { Client } = require("./classes/client/client");
-const { Round } = require("./classes/round/round");
 
 const {
   emitOnJoinedRoom,
@@ -70,7 +69,7 @@ io.on("connection", (socket) => {
 
     if (allReady) {
       console.log("all ready");
-      room.rounds.push(new Round());
+      room.startNewRound(io);
       emitStartGame(io, room);
     }
   });

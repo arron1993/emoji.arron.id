@@ -42,4 +42,8 @@ export class RoomService {
   onStartGame(): Observable<any> {
     return this.ss.on("startGame");
   }
+
+  onRoundTimerUpdate(): Observable<any> {
+    return this.ss.on("updateRoundTimer");
+  }
 }
