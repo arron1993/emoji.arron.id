@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import emojies  from './emojies';
 
 @Component({
   selector: 'app-emoji-keyboard',
@@ -7,19 +8,10 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class EmojiKeyboardComponent implements OnInit {
   @Output() emoji = new EventEmitter<any>();
+  emojies = emojies;
 
-  category = "people"
-  emojies = {
-    "people": ["😀"],
-    "animals": ["🦁"],
-    "food": ["🍇"],
-    "activity": ["🕴️"],
-    "travel": ["🚣"],
-    "objects": ["💌"],
-    "symbols": ["💘"],
-    "flags": ["🏁"]
-  };
-
+  selectedCategory = "people"
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -27,5 +19,5 @@ export class EmojiKeyboardComponent implements OnInit {
 
   select(emoji) {
     this.emoji.emit(emoji)
-  }
+  }  
 }
