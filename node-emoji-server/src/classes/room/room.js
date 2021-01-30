@@ -1,5 +1,7 @@
 const { Round } = require("../round/round");
 
+const { emitNewRound } = require("../../events");
+
 class Room {
   constructor(roomId) {
     this.id = roomId;
@@ -26,17 +28,23 @@ class Room {
   }
 
   startNewRound(io) {
-    this.rounds.push(new Round());
+    const round = new Round();
+    this.rounds.push(round);
+
+    emitNewRound(io, this.id, round);
     this.startRoundTimer(io);
   }
 
   startRoundTimer(io) {
-    let counter = 60;
-    this.roundTimer = setInterval(function () {
+    let counter = 5;
+    this.roundTimer = setInterval(() => {
       io.sockets.emit("updateRoundTimer", { time: counter });
       counter--;
       if (counter === 0) {
         clearInterval(this.roundTimer);
+        if (this.rounds.length < 10) {
+          this.startNewRound(io);
+        }
       }
     }, 1000);
   }

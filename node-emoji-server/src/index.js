@@ -25,6 +25,7 @@ const rooms = {};
 io.on("connection", (socket) => {
   console.log("A user connected", socket.id);
   socket.game = {};
+
   socket.on("createRoom", (data) => {
     console.log("createRoom");
     const roomId = uuidv4();
@@ -59,6 +60,7 @@ io.on("connection", (socket) => {
     socket.game.client.ready = !socket.game.client.ready;
     const room = rooms[socket.game.client.roomId];
     emitUpdateUserList(io, room);
+
     let allReady = true;
     for (let client of room.getClients()) {
       if (!client.ready) {
@@ -68,9 +70,7 @@ io.on("connection", (socket) => {
     }
 
     if (allReady) {
-      console.log("all ready");
       room.startNewRound(io);
-      emitStartGame(io, room);
     }
   });
 
