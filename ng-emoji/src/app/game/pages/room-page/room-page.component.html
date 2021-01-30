@@ -1,24 +1,56 @@
-<ng-container *ngIf="!username">
-  <form #setUsernameForm="ngForm" (ngSubmit)="onSubmit(setUsernameForm)">
-    <input ngModel type="text" name="username" />
-    <button>Join</button>
-  </form>
-</ng-container>
-
-<app-user-list [roomId]="roomId"></app-user-list>
-
-<div *ngIf="currentRound">
-  {{ currentRound.word }}
+<div *ngIf="username === ''; else hasUsername">
+  <div class="row no-gutters">
+    <div class="col-12 col-md-6 offset-md-3">
+      <app-join-room-form
+        [roomId]="roomId"
+        (username)="setUsername($event)"
+      ></app-join-room-form>
+    </div>
+  </div>
 </div>
 
-<div *ngIf="timer > 0">
-  {{ timer }}
-</div>
+<ng-template #hasUsername>
+  <div class="row no-gutters">
+    <div class="col-12 col-md-10">
+      <ng-container *ngIf="currentRound">
+        <div class="row no-gutters">
+          <div class="col-12 col-md-11">
+            <h1>
+              {{ currentRound.word }}
+            </h1>
+          </div>
+          <div class="col-12 col-md-1">
+            <div>
+              {{ timer }}
+            </div>
+          </div>
+          <div class="col-12">
+            <div>
+              <input
+                class="form-control"
+                [(ngModel)]="answer"
+                type="text"
+                name="answer"
+                (ngModelChange)="updateAnswer()"
+              />
+            </div>
+          </div>
+        </div>
 
-<input
-  [(ngModel)]="answer"
-  type="text"
-  name="answer"
-  (ngModelChange)="updateAnswer()"
-/>
-<app-emoji-keyboard (emoji)="addToAnswer($event)"></app-emoji-keyboard>
+        <app-emoji-keyboard (emoji)="addToAnswer($event)"></app-emoji-keyboard>
+      </ng-container>
+    </div>
+    <div class="col-12 col-md-2">
+      <div>
+        <div>Share this link with your friends</div>
+        <app-share-room-link></app-share-room-link>
+      </div>
+      <div class="w-100 text-right">
+        <app-ready-up-button></app-ready-up-button>
+      </div>
+      <div class="d-none d-lg-block">
+        <app-user-list [roomId]="roomId"></app-user-list>
+      </div>
+    </div>
+  </div>
+</ng-template>

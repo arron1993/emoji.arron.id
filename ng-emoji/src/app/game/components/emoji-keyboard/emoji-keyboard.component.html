@@ -8,9 +8,7 @@
     </button>
   </div>
   <div class="row no-gutters emojies mt-4">
-    <div
-      *ngFor="let emoji of emojies[selectedCategory]; let i = index; trackBy: i"
-    >
+    <div *ngFor="let emoji of emojies[selectedCategory]">
       <button class="btn" (click)="select(emoji)">
         {{ emoji }}
       </button>

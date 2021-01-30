@@ -1,11 +1,16 @@
-<div *ngIf="roomId">
-  <app-ready-up-button></app-ready-up-button>
-  <div>User List</div>
-  <ul>
-    <li *ngFor="let user of users">
-      <div>{{ user.username }}</div>
-      <div *ngIf="user.ready; else notReady">&#10004;</div>
-      <ng-template #notReady> &#10006;</ng-template>
-    </li>
-  </ul>
+<div *ngIf="roomId" class="row no-gutters">
+  <div class="col-12">
+    <div>
+      <h5>User List</h5>
+    </div>
+    <div>
+      <ul class="nav flex-column">
+        <li *ngFor="let user of users" class="nav-item">
+          <span>{{ user.username }}</span>
+          <span *ngIf="user.ready; else notReady">&#10004;</span>
+          <ng-template #notReady> &#10006;</ng-template>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

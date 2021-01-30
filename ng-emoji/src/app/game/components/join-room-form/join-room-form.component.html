@@ -1,0 +1,9 @@
+<form #setUsernameForm="ngForm" (ngSubmit)="onSubmit(setUsernameForm)">
+  <div class="form-group">
+    <label> Enter a display name </label>
+    <input class="form-control" ngModel type="text" name="username" />
+  </div>
+  <div class="form-group">
+    <button class="btn">Join</button>
+  </div>
+</form>

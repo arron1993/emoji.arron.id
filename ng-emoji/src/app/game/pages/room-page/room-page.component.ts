@@ -11,7 +11,7 @@ import { RoomService } from '../../services/room.service';
 export class RoomPageComponent implements OnInit {
   answer = "";
   roomId: number;
-  username: string;
+  username: string = "";
   joinedRoomSub: Subscription;
   startGameSub: Subscription;
   timerSub: Subscription;
@@ -24,16 +24,15 @@ export class RoomPageComponent implements OnInit {
     private rs: RoomService,
     private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this.setupSubs();
-  }
-
-  onSubmit(form) {
+  ngOnInit(): void {    
     this.route.params.subscribe(params => {
       this.roomId = params.roomId;
-      this.username = form.value.username;
-      this.rs.join(this.roomId, form.value.username)
+      this.setupSubs();
     })
+  }
+
+  setUsername(username) {
+    this.username = username;
   }
 
   setupSubs() {    
@@ -46,13 +45,13 @@ export class RoomPageComponent implements OnInit {
     })
 
     this.timerSub = this.rs.onRoundTimerUpdate().subscribe(resp => {
+      console.log(resp.time);
       this.timer = resp.time;
     })
   }
 
   updateAnswer() {
-    this.rs.updateAnswer(this.answer);
-    
+    this.rs.updateAnswer(this.answer);    
   }
 
   addToAnswer(emoji) {
