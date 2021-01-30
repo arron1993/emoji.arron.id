@@ -19,6 +19,13 @@ function emitNewRound(io, roomId, round) {
   });
 }
 
+function emitEndGame(io, roomId, rounds) {
+  io.to(roomId).emit("onEndGame", {
+    rounds: rounds,
+  });
+}
+
+exports.emitEndGame = emitEndGame;
 exports.emitOnJoinedRoom = emitOnJoinedRoom;
 exports.emitUpdateUserList = emitUpdateUserList;
 exports.emitStartGame = emitStartGame;

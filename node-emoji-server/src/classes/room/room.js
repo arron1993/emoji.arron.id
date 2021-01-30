@@ -1,11 +1,14 @@
 const { Round } = require("../round/round");
 
-const { emitNewRound } = require("../../events");
+const { emitNewRound, emitEndGame } = require("../../events");
 
 class Room {
   constructor(roomId) {
     this.id = roomId;
     this.clients = new Set();
+
+    this.totalRounds = 3;
+    this.roundLength = 5;
 
     this.rounds = [];
 
@@ -35,15 +38,21 @@ class Room {
     this.startRoundTimer(io);
   }
 
+  endGame(io) {
+    emitEndGame(io, this.id, this.rounds);
+  }
+
   startRoundTimer(io) {
-    let counter = 5;
+    let counter = this.roundLength;
     this.roundTimer = setInterval(() => {
       io.sockets.emit("updateRoundTimer", { time: counter });
       counter--;
       if (counter === 0) {
         clearInterval(this.roundTimer);
-        if (this.rounds.length < 10) {
+        if (this.rounds.length <= this.totalRounds - 1) {
           this.startNewRound(io);
+        } else {
+          this.endGame(io);
         }
       }
     }, 1000);

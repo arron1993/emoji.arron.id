@@ -43,6 +43,10 @@ export class RoomService {
     return this.ss.on("onNewRound");
   }
 
+  onEndGame(): Observable<any> {
+    return this.ss.on("onEndGame");
+  }
+
   onRoundTimerUpdate(): Observable<any> {
     return this.ss.on("updateRoundTimer");
   }

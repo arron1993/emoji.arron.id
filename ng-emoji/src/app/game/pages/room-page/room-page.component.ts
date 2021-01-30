@@ -15,10 +15,13 @@ export class RoomPageComponent implements OnInit {
   joinedRoomSub: Subscription;
   newRoundSub: Subscription;
   timerSub: Subscription;
+  endGameSub: Subscription;
 
   currentRound = null;
 
   timer = 0;
+  endGame = false;
+  rounds = [];
 
   constructor(
     private rs: RoomService,
@@ -42,11 +45,17 @@ export class RoomPageComponent implements OnInit {
 
     this.newRoundSub = this.rs.onNewRound().subscribe(resp => {
       this.currentRound = resp.round;
+      this.answer = "";
     })
 
     this.timerSub = this.rs.onRoundTimerUpdate().subscribe(resp => {
-      console.log(resp.time);
       this.timer = resp.time;
+    })
+
+    this.endGameSub = this.rs.onEndGame().subscribe(resp => {
+      this.endGame = true;
+      this.rounds = resp.rounds;
+      console.log(this.rounds);
     })
   }
 

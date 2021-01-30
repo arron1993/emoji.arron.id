@@ -6,11 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 const { Room } = require("./classes/room/room");
 const { Client } = require("./classes/client/client");
 
-const {
-  emitOnJoinedRoom,
-  emitUpdateUserList,
-  emitStartGame,
-} = require("./events");
+const { emitOnJoinedRoom, emitUpdateUserList } = require("./events");
 
 const io = require("socket.io")(http, {
   cors: {
@@ -75,7 +71,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("updateAnswer", (answer) => {
-    console.log("updateAnswer", answer);
+    const room = rooms[socket.game.client.roomId];
+    room.rounds[room.rounds.length - 1].answers[
+      socket.game.client.socketId
+    ] = answer;
   });
 
   socket.on("disconnecting", () => {
