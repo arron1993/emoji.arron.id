@@ -12,9 +12,17 @@
 <ng-template #hasUsername>
   <div class="row no-gutters">
     <div class="col-12 col-md-10">
-      <ng-container>
+      <ng-container *ngIf="!endGame; else showResults">
         <app-round-display></app-round-display>
       </ng-container>
+      <ng-template #showResults>
+        <ng-container *ngFor="let round of rounds">
+          <h5>{{ round.word }}</h5>
+          <div *ngFor="let answer of round.answers | keyvalue">
+            {{ answer.value.username }} - {{ answer.value.answer }}
+          </div>
+        </ng-container>
+      </ng-template>
     </div>
     <div class="col-12 col-md-2">
       <div>
