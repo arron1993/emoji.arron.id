@@ -1,0 +1,12 @@
+version: "2.0"
+services:
+  node-emoji-server:
+    build:
+      context: node-emoji-server/.
+  ng-emoji:
+    build:
+      context: ng-emoji/.
+    ports:
+      - "8000:80"
+    volumes:
+      - ./ng-emoji/nginx/:/etc/nginx/conf.d/
