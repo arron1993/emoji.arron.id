@@ -15,4 +15,10 @@ export class ShareRoomLinkComponent implements OnInit {
   get location() {
     return window.location.href
   }
+
+  copyLink(input) {
+    input.select();
+    document.execCommand('copy');
+    input.setSelectionRange(0, 0);
+  }
 }
