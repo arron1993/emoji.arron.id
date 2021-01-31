@@ -43,28 +43,12 @@ export class RoomPageComponent implements OnInit {
       console.log(resp);
     })
 
-    this.newRoundSub = this.rs.onNewRound().subscribe(resp => {
-      this.currentRound = resp.round;
-      this.answer = "";
-    })
-
-    this.timerSub = this.rs.onRoundTimerUpdate().subscribe(resp => {
-      this.timer = resp.time;
-    })
-
     this.endGameSub = this.rs.onEndGame().subscribe(resp => {
+      console.log(resp.rounds);
       this.endGame = true;
       this.rounds = resp.rounds;
-      console.log(this.rounds);
     })
   }
 
-  updateAnswer() {
-    this.rs.updateAnswer(this.answer);    
-  }
 
-  addToAnswer(emoji) {
-    this.answer += emoji;
-    this.updateAnswer();
-  }
 }

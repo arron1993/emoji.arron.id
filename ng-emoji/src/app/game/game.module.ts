@@ -10,9 +10,11 @@ import { ReadyUpButtonComponent } from './components/ready-up-button/ready-up-bu
 import { EmojiKeyboardComponent } from './components/emoji-keyboard/emoji-keyboard.component';
 import { JoinRoomFormComponent } from './components/join-room-form/join-room-form.component';
 import { ShareRoomLinkComponent } from './components/share-room-link/share-room-link.component';
+import { RoundDisplayComponent } from './components/round-display/round-display.component';
+import { RoundTimerComponent } from './components/round-timer/round-timer.component';
 
 @NgModule({
-  declarations: [CreateRoomPageComponent, RoomPageComponent, UserListComponent, ReadyUpButtonComponent, EmojiKeyboardComponent, JoinRoomFormComponent, ShareRoomLinkComponent],
+  declarations: [CreateRoomPageComponent, RoomPageComponent, UserListComponent, ReadyUpButtonComponent, EmojiKeyboardComponent, JoinRoomFormComponent, ShareRoomLinkComponent, RoundDisplayComponent, RoundTimerComponent],
   imports: [
     CommonModule,
     FormsModule,

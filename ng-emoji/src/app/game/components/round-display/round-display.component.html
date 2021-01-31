@@ -1,0 +1,23 @@
+<div class="row no-gutters" *ngIf="currentRound">
+  <div class="col-12 col-md-11">
+    <h1>
+      {{ currentRound.word }}
+    </h1>
+  </div>
+  <div class="col-12 col-md-1">
+    <app-round-timer></app-round-timer>
+  </div>
+  <div class="col-12">
+    <div>
+      <input
+        class="form-control"
+        [(ngModel)]="answer"
+        type="text"
+        name="answer"
+        (ngModelChange)="updateAnswer()"
+      />
+    </div>
+  </div>
+</div>
+
+<app-emoji-keyboard (emoji)="addToAnswer($event)"></app-emoji-keyboard>

@@ -12,32 +12,8 @@
 <ng-template #hasUsername>
   <div class="row no-gutters">
     <div class="col-12 col-md-10">
-      <ng-container *ngIf="currentRound">
-        <div class="row no-gutters">
-          <div class="col-12 col-md-11">
-            <h1>
-              {{ currentRound.word }}
-            </h1>
-          </div>
-          <div class="col-12 col-md-1">
-            <div>
-              {{ timer }}
-            </div>
-          </div>
-          <div class="col-12">
-            <div>
-              <input
-                class="form-control"
-                [(ngModel)]="answer"
-                type="text"
-                name="answer"
-                (ngModelChange)="updateAnswer()"
-              />
-            </div>
-          </div>
-        </div>
-
-        <app-emoji-keyboard (emoji)="addToAnswer($event)"></app-emoji-keyboard>
+      <ng-container>
+        <app-round-display></app-round-display>
       </ng-container>
     </div>
     <div class="col-12 col-md-2">

@@ -72,9 +72,10 @@ io.on("connection", (socket) => {
 
   socket.on("updateAnswer", (answer) => {
     const room = rooms[socket.game.client.roomId];
-    room.rounds[room.rounds.length - 1].answers[
-      socket.game.client.socketId
-    ] = answer;
+    room.rounds[room.rounds.length - 1].answers[socket.game.client.socketId] = {
+      answer: answer,
+      username: socket.game.client.username,
+    };
   });
 
   socket.on("disconnecting", () => {
@@ -84,6 +85,11 @@ io.on("connection", (socket) => {
       if (room) {
         room.removeClient(socket.id);
         emitUpdateUserList(io, room);
+        console.log(room.getClients().length);
+        if (room.getClients().length === 0) {
+          console.log(roomId, "is empty, deleting...");
+          delete rooms[roomId];
+        }
       }
     }
     // if room is now empty, then delete it from rooms
