@@ -7,9 +7,9 @@ class Room {
     this.id = roomId;
     this.clients = new Set();
 
-    this.totalRounds = 1;
+    this.totalRounds = 5;
 
-    this.roundLength = 5;
+    this.roundLength = 20;
 
     this.rounds = [];
 
