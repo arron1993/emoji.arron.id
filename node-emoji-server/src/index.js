@@ -4,7 +4,7 @@ const http = require("http").Server(app);
 const { v4: uuidv4 } = require("uuid");
 
 const { Room } = require("./classes/room/room");
-const { Client } = require("./classes/client/client");
+const { Player } = require("./classes/player/player");
 
 const { emitOnJoinedRoom, emitUpdateUserList } = require("./events");
 
@@ -23,43 +23,38 @@ io.on("connection", (socket) => {
   socket.game = {};
 
   socket.on("createRoom", (data) => {
-    console.log("createRoom");
     const roomId = uuidv4();
-    rooms[roomId] = new Room(roomId);
-    io.emit("createdRoom", { roomId: roomId });
+    rooms[roomId] = new Room(io, roomId);
   });
 
   socket.on("joinRoom", (data) => {
     console.log("User joined room", socket.id, data.roomId);
-
     socket.join(data.roomId);
-    client = new Client(socket.id, data.username, data.roomId);
-    socket.game.client = client;
-    const room = rooms[data.roomId] || new Room(data.roomId);
+
+    player = new Player(socket.id, data.username, data.roomId);
+    socket.game.player = player;
+    const room = rooms[data.roomId] || new Room(io, data.roomId);
 
     if (rooms[data.roomId] === undefined) {
       rooms[data.roomId] = room;
     }
 
-    room.addClient(client);
-
-    emitOnJoinedRoom(io, data);
-    emitUpdateUserList(io, room);
+    room.addPlayer(player);
   });
 
-  socket.on("getUserList", (data) => {
-    const room = rooms[data.roomId] || new Room(data.roomId);
+  socket.on("getPlayerList", (data) => {
+    const room = rooms[data.roomId] || new Room(io, data.roomId);
     emitUpdateUserList(io, room);
   });
 
   socket.on("readyUp", () => {
-    socket.game.client.ready = !socket.game.client.ready;
-    const room = rooms[socket.game.client.roomId];
+    socket.game.player.ready = !socket.game.player.ready;
+    const room = rooms[socket.game.player.roomId];
     emitUpdateUserList(io, room);
 
     let allReady = true;
-    for (let client of room.getClients()) {
-      if (!client.ready) {
+    for (let player of room.getPlayer()) {
+      if (!player.ready) {
         allReady = false;
         break;
       }
@@ -71,10 +66,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("updateAnswer", (answer) => {
-    const room = rooms[socket.game.client.roomId];
-    room.rounds[room.rounds.length - 1].answers[socket.game.client.socketId] = {
+    const room = rooms[socket.game.player.roomId];
+    room.rounds[room.rounds.length - 1].answers[socket.game.player.socketId] = {
       answer: answer,
-      username: socket.game.client.username,
+      username: socket.game.player.username,
     };
   });
 
@@ -83,10 +78,8 @@ io.on("connection", (socket) => {
     for (const roomId of socket.rooms) {
       room = rooms[roomId];
       if (room) {
-        room.removeClient(socket.id);
-        emitUpdateUserList(io, room);
-        console.log(room.getClients().length);
-        if (room.getClients().length === 0) {
+        room.removePlayer(socket.id);
+        if (room.getPlayers().length === 0) {
           console.log(roomId, "is empty, deleting...");
           delete rooms[roomId];
         }

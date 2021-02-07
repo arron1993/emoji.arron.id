@@ -1,4 +1,4 @@
-class Client {
+class Player {
   constructor(socketId, username, roomId) {
     this.socketId = socketId;
     this.roomId = roomId;
@@ -10,4 +10,4 @@ class Client {
   }
 }
 
-exports.Client = Client;
+exports.Player = Player;

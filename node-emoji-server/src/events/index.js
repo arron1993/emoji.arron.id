@@ -6,7 +6,7 @@ function emitOnJoinedRoom(io, data) {
 }
 
 function emitUpdateUserList(io, room) {
-  io.to(room.id).emit("updateUserList", { users: room.getClients() });
+  io.to(room.id).emit("updateUserList", { users: room.getPlayers() });
 }
 
 function emitStartGame(io, room) {

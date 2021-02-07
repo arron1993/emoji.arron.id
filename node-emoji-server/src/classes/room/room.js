@@ -1,34 +1,46 @@
 const { Round } = require("../round/round");
 
-const { emitNewRound, emitEndGame } = require("../../events");
+const {
+  emitNewRound,
+  emitEndGame,
+  emitOnJoinedRoom,
+  emitUpdateUserList,
+} = require("../../events");
 
 class Room {
-  constructor(roomId) {
+  constructor(io, roomId) {
+    this.io = io;
     this.id = roomId;
-    this.clients = new Set();
+    this.players = new Set();
 
     this.totalRounds = 5;
 
     this.roundLength = 20;
 
     this.rounds = [];
-
     this.roundTimer;
+    this.io.emit("createdRoom", { roomId: roomId });
   }
 
-  getClients() {
-    return Array.from(this.clients);
+  getPlayers() {
+    return Array.from(this.players);
   }
 
-  addClient(client) {
-    this.clients.add(client);
+  addPlayer(player) {
+    this.players.add(player);
+    emitOnJoinedRoom(this.io, {
+      roomId: this.roomId,
+      username: player.username,
+    });
+    emitUpdateUserList(this.io, this);
   }
 
-  removeClient(socketId) {
-    const clients = [...this.clients].filter(
-      (client) => client.socketId != socketId
+  removePlayer(socketId) {
+    const players = [...this.players].filter(
+      (player) => player.socketId != socketId
     );
-    this.clients = new Set(clients);
+    this.players = new Set(players);
+    emitUpdateUserList(io, this);
   }
 
   startNewRound(io) {
