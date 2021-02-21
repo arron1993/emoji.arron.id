@@ -1,5 +1,4 @@
-import { Injectable, Output } from '@angular/core';
-import { io }from 'socket.io-client';
+import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { SocketService } from 'src/app/core/services/socket.service';
@@ -11,12 +10,12 @@ export class RoomService {
 
   constructor(private ss: SocketService) { }
 
-  onCreatedRoom(): Observable<any> {
-    return this.ss.on("createdRoom")
+  onCreateRoom(): Observable<any> {
+    return this.ss.on("createRoom")
   }
 
-  create() {     
-    this.ss.emit('createRoom', {});
+  create(username) {     
+    this.ss.emit('createRoom', {username: username});
   }
 
   join(roomId, username) {     

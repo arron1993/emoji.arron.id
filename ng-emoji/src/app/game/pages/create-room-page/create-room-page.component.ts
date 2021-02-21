@@ -10,21 +10,23 @@ import { RoomService } from '../../services/room.service';
 })
 export class CreateRoomPageComponent implements OnInit {
   sub: Subscription;
+  username: string;
 
   constructor(
     private rs: RoomService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.onCreatedRoom();
+    this.onCreateRoom();
   }
 
   createRoom() {
-    this.rs.create();    
+    this.rs.create(this.username);    
   }
 
-  onCreatedRoom() {
-    this.sub = this.rs.onCreatedRoom().subscribe(resp => {
+  onCreateRoom() {
+    this.sub = this.rs.onCreateRoom().subscribe(resp => {
+      console.log(resp)
       this.router.navigate([resp.roomId]);
     })
   }

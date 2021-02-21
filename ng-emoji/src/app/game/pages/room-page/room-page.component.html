@@ -1,4 +1,9 @@
-<div *ngIf="username === ''; else hasUsername">
+<div *ngIf="player; else joinRoom">
+  <div class="row no-gutters">
+    <div class="col-12 col-md-6 offset-md-3">Hello {{ player.username }}</div>
+  </div>
+</div>
+<ng-template #joinRoom>
   <div class="row no-gutters">
     <div class="col-12 col-md-6 offset-md-3">
       <app-join-room-form
@@ -7,9 +12,8 @@
       ></app-join-room-form>
     </div>
   </div>
-</div>
-
-<ng-template #hasUsername>
+</ng-template>
+<!-- <ng-template #hasUsername>
   <div class="row no-gutters">
     <div class="col-12 col-md-10">
       <ng-container *ngIf="!endGame; else showResults">
@@ -37,4 +41,4 @@
       </div>
     </div>
   </div>
-</ng-template>
+</ng-template> -->
