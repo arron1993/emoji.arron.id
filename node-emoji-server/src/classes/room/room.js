@@ -29,16 +29,22 @@ class Room {
   }
 
   addPlayer(player) {
+    player.socket.join(this.id);
     this.players.add(player);
     this.events.playerJoinedRoom(player);
   }
 
-  removePlayer(socketId) {
+  removePlayer(playerToRemove) {
     const players = [...this.players].filter(
-      (player) => player.socketId != socketId
+      (player) => player.socketId != playerToRemove.socketId
     );
+    playerToRemove.socket.leave(this.roomId);
     this.players = new Set(players);
-    this.events.playerLeftRoom(player);
+    this.events.playerLeftRoom(playerToRemove);
+  }
+
+  getPlayers(socket) {
+    this.events.getPlayers(socket, Array.from(this.players));
   }
 
   startNewRound(io) {

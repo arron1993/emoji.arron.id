@@ -19,19 +19,24 @@ export class RoomService {
   }
 
   join(roomId, username) {     
+    console.log("join")
     this.ss.emit('joinRoom', {roomId: roomId, username: username});
   }
 
-  onJoinedRoom(): Observable<any> {
-    return this.ss.on("onJoinedRoom")
+  onPlayerJoinedRoom(): Observable<any> {
+    return this.ss.on("playerJoinedRoom")
   }
 
-  getUserList() {
-    this.ss.emit("getUserList");
+  onPlayerLeftRoom(): Observable<any> {
+    return this.ss.on("playerLeftRoom")
   }
 
-  onUpdateUserList(): Observable<any> {
-    return this.ss.on("updateUserList")
+  getPlayers(roomId) {
+    this.ss.emit("getPlayers", {roomId: roomId});
+  }
+
+  onGetPlayers(): Observable<any> {
+    return this.ss.on("getPlayers")
   }
 
   readyUp() {

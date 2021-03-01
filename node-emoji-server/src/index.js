@@ -27,11 +27,9 @@ io.on("connection", (socket) => {
     room = new Room(io, roomId);
     room.addPlayer(socket.player);
     rooms[roomId] = room;
-    console.log(`Created room ${roomId}`);
   });
 
   socket.on("getPlayerDetails", () => {
-    console.log("getPlayerDetails");
     if (socket.player === null) {
       socket.emit("getPlayerDetails", { player: null });
     } else {
@@ -39,21 +37,30 @@ io.on("connection", (socket) => {
     }
   });
 
+  socket.on("getPlayers", () => {
+    room = rooms[socket.player.roomId];
+    room.getPlayers(socket);
+  });
+
   socket.on("joinRoom", (data) => {
     room = rooms[data.roomId];
     let isAdmin = false;
     if (room === undefined) {
-      room = new Room(io, data.roomid);
+      room = new Room(io, data.roomId);
       rooms[room.id] = room;
       isAdmin = true;
     }
     socket.player = new Player(io, socket, data.roomId, data.username, isAdmin);
-
     room.addPlayer(socket.player);
-    console.log(`${data.username} joined room ${data.roomId}`);
   });
 
-  socket.on("disconnecting", () => {});
+  socket.on("disconnecting", () => {
+    if (socket.player) {
+      console.log(`User ${socket.player.username} disconnecting`);
+      room = rooms[socket.player.roomId];
+      room.removePlayer(socket.player);
+    }
+  });
 });
 
 http.listen(3000, () => {

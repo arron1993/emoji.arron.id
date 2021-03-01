@@ -8,18 +8,34 @@ import { RoomService } from '../../services/room.service';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  userSubscription: Subscription;
+  playerJoinedSub$: Subscription;
+  playerLeftSub$: Subscription;
+  getPlayersSub$: Subscription;
 
-  users: [string];
+  players = [];
 
   @Input() roomId: number;
   constructor(private rs: RoomService) { }
 
   ngOnInit(): void {
-    this.userSubscription = this.rs.onUpdateUserList().subscribe(resp => {
-      console.log(resp);
-      this.users = resp.users;
-    })    
+    this.getPlayersSub$ = this.rs.onGetPlayers().subscribe(resp => {
+      this.players = resp.players
+      console.log(this.players)
+    })
+    this.rs.getPlayers(this.roomId);
+
+    this.playerJoinedSub$ = this.rs.onPlayerJoinedRoom().subscribe(resp => {
+      this.players.push(resp.player)
+    })
+
+    this.playerLeftSub$ = this.rs.onPlayerLeftRoom().subscribe(resp => {
+      this.players = this.players.filter(x => x.id != resp.player.id)
+    })
   }
 
+  ngOnDestroy() {
+    this.playerJoinedSub$.unsubscribe()
+    this.playerLeftSub$.unsubscribe()
+    this.getPlayersSub$.unsubscribe()
+  }
 }

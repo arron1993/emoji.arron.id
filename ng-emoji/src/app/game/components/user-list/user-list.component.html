@@ -5,9 +5,9 @@
     </div>
     <div>
       <ul class="nav flex-column">
-        <li *ngFor="let user of users" class="nav-item">
-          <span>{{ user.username }}</span>
-          <span *ngIf="user.ready; else notReady">&#10004;</span>
+        <li *ngFor="let player of players" class="nav-item">
+          <span>{{ player.username }}</span>
+          <span *ngIf="player.ready; else notReady">&#10004;</span>
           <ng-template #notReady> &#10006;</ng-template>
         </li>
       </ul>

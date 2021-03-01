@@ -4,7 +4,7 @@ class Player {
   constructor(io, socket, roomId, username, isAdmin) {
     this.io = io;
     this.events = new PlayerEventManager(io, socket);
-    this.socketId = socket.id;
+    this.socket = socket;
     this.roomId = roomId;
     this.username = username;
     this.isAdmin = isAdmin || false;

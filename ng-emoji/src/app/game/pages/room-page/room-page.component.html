@@ -6,6 +6,9 @@
         <div>Share this link with your friends</div>
         <app-share-room-link></app-share-room-link>
       </div>
+      <div class="d-none d-lg-block">
+        <app-user-list [roomId]="roomId"></app-user-list>
+      </div>
     </div>
   </div>
 </div>
@@ -39,9 +42,7 @@
       <div class="w-100 text-right">
         <app-ready-up-button></app-ready-up-button>
       </div>
-      <div class="d-none d-lg-block">
-        <app-user-list [roomId]="roomId"></app-user-list>
-      </div>
+
     </div>
   </div>
 </ng-template> -->
