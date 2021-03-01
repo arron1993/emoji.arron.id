@@ -5,7 +5,9 @@ class PlayerEventManager {
   }
 
   getPlayerDetails(player) {
-    this.socket.emit("getPlayerDetails", { player: player });
+    this.socket.emit("getPlayerDetails", {
+      player: { username: player.username },
+    });
   }
 }
 

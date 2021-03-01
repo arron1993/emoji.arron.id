@@ -9,7 +9,7 @@ import { RoomService } from '../../services/room.service';
   styleUrls: ['./create-room-page.component.scss']
 })
 export class CreateRoomPageComponent implements OnInit {
-  sub: Subscription;
+  onCreateRoom$: Subscription;
   username: string;
 
   constructor(
@@ -25,9 +25,13 @@ export class CreateRoomPageComponent implements OnInit {
   }
 
   onCreateRoom() {
-    this.sub = this.rs.onCreateRoom().subscribe(resp => {
+    this.onCreateRoom$ = this.rs.onCreateRoom().subscribe(resp => {
       console.log(resp)
       this.router.navigate([resp.roomId]);
     })
+  }
+
+  ngOnDestroy() {
+    this.onCreateRoom$.unsubscribe()
   }
 }

@@ -14,7 +14,7 @@ export class RoomPageComponent implements OnInit {
   roomId: number;
   player;
 
-  getPlayerDetailsSub: Subscription;
+  getPlayerDetailsSub$: Subscription;
 
   currentRound = null;
 
@@ -36,9 +36,13 @@ export class RoomPageComponent implements OnInit {
   }
 
   setupSubs() {    
-    this.getPlayerDetailsSub = this.ps.onGetPlayerDetails().subscribe(resp => {
+    this.getPlayerDetailsSub$ = this.ps.onGetPlayerDetails().subscribe(resp => {
       console.log(resp)
       this.player = resp.player
     })
+  }
+
+  ngOnDestroy() {
+    this.getPlayerDetailsSub$.unsubscribe();
   }
 }

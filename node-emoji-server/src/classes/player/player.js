@@ -11,6 +11,7 @@ class Player {
     this.points = 0;
     this.active = false;
     this.ready = false;
+    this.events.getPlayerDetails(this);
   }
 
   getPlayerDetails() {

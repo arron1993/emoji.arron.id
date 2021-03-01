@@ -22,7 +22,8 @@ io.on("connection", (socket) => {
 
   socket.on("createRoom", (data) => {
     const roomId = uuidv4();
-    socket.player = new Player(io, socket, roomId, data.username, true);
+    const isAdmin = true;
+    socket.player = new Player(io, socket, roomId, data.username, isAdmin);
     room = new Room(io, roomId);
     room.addPlayer(socket.player);
     rooms[roomId] = room;
@@ -36,6 +37,20 @@ io.on("connection", (socket) => {
     } else {
       socket.player.getPlayerDetails();
     }
+  });
+
+  socket.on("joinRoom", (data) => {
+    room = rooms[data.roomId];
+    let isAdmin = false;
+    if (room === undefined) {
+      room = new Room(io, data.roomid);
+      rooms[room.id] = room;
+      isAdmin = true;
+    }
+    socket.player = new Player(io, socket, data.roomId, data.username, isAdmin);
+
+    room.addPlayer(socket.player);
+    console.log(`${data.username} joined room ${data.roomId}`);
   });
 
   socket.on("disconnecting", () => {});
