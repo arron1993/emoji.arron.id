@@ -17,4 +17,12 @@ export class PlayerService {
   onGetPlayerDetails(): Observable<any> {
     return this.ss.on("getPlayerDetails")
   }
+
+  updatePlayer(data) {
+    this.ss.emit('updatePlayer', data);
+  }
+
+  onUpdatePlayer(): Observable<any> {
+    return this.ss.on("updatePlayer")
+  }
 }

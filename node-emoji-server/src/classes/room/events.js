@@ -13,31 +13,19 @@ class RoomEventManager {
   playerJoinedRoom(player) {
     console.log(`${player.username} joined room ${this.roomId}`);
     this.emit("playerJoinedRoom", {
-      player: {
-        id: player.socket.id,
-        username: player.username,
-      },
+      player: player._get(),
     });
   }
 
   playerLeftRoom(player) {
     console.log(`${player.username} left room ${this.roomId}`);
     this.emit("playerLeftRoom", {
-      player: {
-        id: player.socket.id,
-        username: player.username,
-      },
+      player: player._get(),
     });
   }
 
   getPlayers(socket, players) {
-    players = players.map((player) => {
-      return {
-        id: player.socket.id,
-        username: player.username,
-      };
-    });
-    console.log(players);
+    players = players.map((player) => player._get());
     socket.emit("getPlayers", { players: players });
   }
 }

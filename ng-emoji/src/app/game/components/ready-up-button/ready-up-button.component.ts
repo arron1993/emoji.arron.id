@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RoomService } from '../../services/room.service';
+import { PlayerService } from '../../services/player.service';
 
 @Component({
   selector: 'app-ready-up-button',
@@ -8,12 +8,12 @@ import { RoomService } from '../../services/room.service';
 })
 export class ReadyUpButtonComponent implements OnInit {
 
-  constructor(private rs: RoomService) { }
+  constructor(private ps: PlayerService) { }
 
   ngOnInit(): void {
   }
 
   readyUp() {
-    this.rs.readyUp();
+    this.ps.updatePlayer({ready: true});
   }
 }

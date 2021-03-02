@@ -42,6 +42,10 @@ io.on("connection", (socket) => {
     room.getPlayers(socket);
   });
 
+  socket.on("updatePlayer", (data) => {
+    socket.player.update(data);
+  });
+
   socket.on("joinRoom", (data) => {
     room = rooms[data.roomId];
     let isAdmin = false;
