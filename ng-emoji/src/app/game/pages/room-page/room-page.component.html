@@ -11,6 +11,7 @@
           <app-user-list [roomId]="roomId"></app-user-list>
         </div>
         <div class="col-12 col-md-4 text-right">
+          <app-start-game-button *ngIf="player.isAdmin"></app-start-game-button>
           <app-ready-up-button></app-ready-up-button>
         </div>
       </div>

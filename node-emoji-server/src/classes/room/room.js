@@ -24,7 +24,7 @@ class Room {
     this.io.emit("createRoom", { roomId: roomId });
   }
 
-  getPlayers() {
+  _getPlayers() {
     return Array.from(this.players);
   }
 
@@ -44,15 +44,12 @@ class Room {
   }
 
   getPlayers(socket) {
-    this.events.getPlayers(socket, Array.from(this.players));
+    this.events.getPlayers(socket, this._getPlayers());
   }
 
   startNewRound(io) {
     const round = new Round();
     this.rounds.push(round);
-
-    emitNewRound(io, this.id, round);
-    this.startRoundTimer(io);
   }
 
   endGame(io) {

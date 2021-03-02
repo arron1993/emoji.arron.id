@@ -31,8 +31,6 @@ export class RoomService {
     return this.ss.on("playerLeftRoom")
   }
 
-
-
   getPlayers(roomId) {
     this.ss.emit("getPlayers", {roomId: roomId});
   }

@@ -23,9 +23,9 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPlayersSub$ = this.rs.onGetPlayers().subscribe(resp => {
-      this.players = resp.players
-      console.log(this.players)
+      this.players = resp.players      
     })
+
     this.rs.getPlayers(this.roomId);
 
     this.playerJoinedSub$ = this.rs.onPlayerJoinedRoom().subscribe(resp => {

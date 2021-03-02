@@ -46,6 +46,11 @@ io.on("connection", (socket) => {
     socket.player.update(data);
   });
 
+  socket.on("startGame", (data) => {
+    room = rooms[socket.player.roomId];
+    room.startNewRound();
+  });
+
   socket.on("joinRoom", (data) => {
     room = rooms[data.roomId];
     let isAdmin = false;
@@ -63,6 +68,9 @@ io.on("connection", (socket) => {
       console.log(`User ${socket.player.username} disconnecting`);
       room = rooms[socket.player.roomId];
       room.removePlayer(socket.player);
+      if (room._getPlayers().length === 0) {
+        delete rooms[room.id];
+      }
     }
   });
 });
