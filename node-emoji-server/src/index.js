@@ -47,6 +47,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("startGame", (data) => {
+    const roomId = socket.player.roomId;
     room = rooms[socket.player.roomId];
     room.startNewRound();
   });

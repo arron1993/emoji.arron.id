@@ -13,9 +13,10 @@ import { ShareRoomLinkComponent } from './components/share-room-link/share-room-
 import { RoundDisplayComponent } from './components/round-display/round-display.component';
 import { RoundTimerComponent } from './components/round-timer/round-timer.component';
 import { StartGameButtonComponent } from './components/start-game-button/start-game-button.component';
+import { RoundComponent } from './components/round/round.component';
 
 @NgModule({
-  declarations: [CreateRoomPageComponent, RoomPageComponent, UserListComponent, ReadyUpButtonComponent, EmojiKeyboardComponent, JoinRoomFormComponent, ShareRoomLinkComponent, RoundDisplayComponent, RoundTimerComponent, StartGameButtonComponent],
+  declarations: [CreateRoomPageComponent, RoomPageComponent, UserListComponent, ReadyUpButtonComponent, EmojiKeyboardComponent, JoinRoomFormComponent, ShareRoomLinkComponent, RoundDisplayComponent, RoundTimerComponent, StartGameButtonComponent, RoundComponent],
   imports: [
     CommonModule,
     FormsModule,

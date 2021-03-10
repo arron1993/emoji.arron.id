@@ -43,8 +43,16 @@ export class RoomService {
     this.ss.emit("readyUp")
   }
 
+  startGame() {
+    this.ss.emit("startGame")
+  }
+
+  onStartGame(): Observable<any> {
+    return this.ss.on("startGame")
+  }
+
   onNewRound(): Observable<any> {
-    return this.ss.on("onNewRound");
+    return this.ss.on("newRound");
   }
 
   onEndGame(): Observable<any> {

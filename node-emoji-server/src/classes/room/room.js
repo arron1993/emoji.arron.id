@@ -48,7 +48,7 @@ class Room {
   }
 
   startNewRound(io) {
-    const round = new Round();
+    const round = new Round(this.io, this.id);
     this.rounds.push(round);
   }
 

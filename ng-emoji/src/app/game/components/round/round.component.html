@@ -1,0 +1,7 @@
+<ng-container *ngIf="round; else roundNotStarted">
+  {{ round.word }}
+</ng-container>
+
+<ng-template #roundNotStarted>
+  <p>Round has not started</p>
+</ng-template>

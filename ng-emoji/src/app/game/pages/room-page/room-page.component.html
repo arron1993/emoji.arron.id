@@ -1,6 +1,9 @@
 <div *ngIf="player; else joinRoom">
   <div class="row no-gutters">
-    <div class="col-12 col-md-8">Hello {{ player.username }}</div>
+    <div class="col-12 col-md-8">
+      <app-round></app-round>
+    </div>
+
     <div class="col-12 col-md-4">
       <div>
         <div>Share this link with your friends</div>
