@@ -11,6 +11,12 @@ class PlayerEventManager {
     });
   }
 
+  setActive() {
+    this.socket.emit("setActive", {
+      active: true,
+    });
+  }
+
   updatePlayer(player) {
     this.io.to(this.roomId).emit("updatePlayer", { player: player });
   }

@@ -25,4 +25,8 @@ export class PlayerService {
   onUpdatePlayer(): Observable<any> {
     return this.ss.on("updatePlayer")
   }
+
+  onSetActive(): Observable<any> {
+    return this.ss.on("setActive")
+  }
 }

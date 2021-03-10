@@ -17,11 +17,12 @@ class Room {
 
     this.totalRounds = 5;
 
-    this.roundLength = 20;
+    this.roundLength = 10;
 
     this.rounds = [];
     this.roundTimer;
     this.io.emit("createRoom", { roomId: roomId });
+    this.activePlayerIndex = 0;
   }
 
   _getPlayers() {
@@ -49,12 +50,12 @@ class Room {
 
   startNewRound() {
     const round = new Round(this.io, this.id);
+    const players = this._getPlayers();
     this.rounds.push(round);
     this.startRoundTimer();
-  }
 
-  endGame(io) {
-    emitEndGame(io, this.id, this.rounds);
+    players[this.activePlayerIndex].setActive();
+    this.activePlayerIndex++ % players.length;
   }
 
   startRoundTimer() {
@@ -64,11 +65,6 @@ class Room {
       counter--;
       if (counter === 0) {
         clearInterval(this.roundTimer);
-        if (this.rounds.length <= this.totalRounds - 1) {
-          // this.startNewRound(io);
-        } else {
-          // this.endGame(io);
-        }
       }
     }, 1000);
   }

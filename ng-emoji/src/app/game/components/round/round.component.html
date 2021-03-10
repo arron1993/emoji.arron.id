@@ -4,6 +4,10 @@
       <div>{{ round.word }}</div>
       <div>{{ time }}</div>
     </div>
+    <div class="col-12">
+      <ng-container *ngIf="active; else guessBox"> Active </ng-container>
+      <ng-template #guessBox> Guess </ng-template>
+    </div>
   </div>
 </ng-container>
 

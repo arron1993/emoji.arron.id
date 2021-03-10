@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { PlayerService } from '../../services/player.service';
 import { RoomService } from '../../services/room.service';
 
 @Component({
@@ -8,12 +9,17 @@ import { RoomService } from '../../services/room.service';
   styleUrls: ['./round.component.scss']
 })
 export class RoundComponent implements OnInit {
-  round;
-  time;
+  round = null;
+  time: number;
+
+  active = false;
   newRoundSub: Subscription;
   timerSub: Subscription;
+  setActiveSub: Subscription;
 
-  constructor(private rs: RoomService) { }
+  constructor(
+    private rs: RoomService,
+    private ps: PlayerService) { }
 
   ngOnInit(): void {
     this.newRoundSub = this.rs.onNewRound().subscribe(resp => {
@@ -24,6 +30,10 @@ export class RoundComponent implements OnInit {
     this.timerSub = this.rs.onTimerTick().subscribe(resp => {
       console.log(resp)
       this.time = resp.time;
+    })
+
+    this.setActiveSub = this.ps.onSetActive().subscribe(resp => {
+      this.active = resp.active;
     })
   }
 

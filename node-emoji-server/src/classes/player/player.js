@@ -24,6 +24,7 @@ class Player {
       ready: this.ready,
     };
   }
+
   update(data) {
     for (const [key, value] of Object.entries(data)) {
       this[key] = value;
@@ -33,6 +34,10 @@ class Player {
 
   getPlayerDetails() {
     this.events.getPlayerDetails(this._get());
+  }
+
+  setActive() {
+    this.events.setActive();
   }
 }
 
