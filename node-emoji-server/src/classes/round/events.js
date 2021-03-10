@@ -14,6 +14,12 @@ class RoundEventManager {
       round: round._get(),
     });
   }
+
+  updateAnswer(answer) {
+    this.emit("updateAnswer", {
+      answer: answer,
+    });
+  }
 }
 
 module.exports.RoundEventManager = RoundEventManager;

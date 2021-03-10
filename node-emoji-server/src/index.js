@@ -42,14 +42,19 @@ io.on("connection", (socket) => {
     room.getPlayers(socket);
   });
 
+  socket.on("getPlayers", () => {
+    room = rooms[socket.player.roomId];
+    room.getPlayers(socket);
+  });
+
   socket.on("updatePlayer", (data) => {
     socket.player.update(data);
   });
 
-  socket.on("startGame", (data) => {
+  socket.on("updateAnswer", (data) => {
     const roomId = socket.player.roomId;
-    room = rooms[socket.player.roomId];
-    room.startNewRound();
+    room = rooms[roomId];
+    room._getCurrentRound().updateAnswer(data.answer);
   });
 
   socket.on("joinRoom", (data) => {

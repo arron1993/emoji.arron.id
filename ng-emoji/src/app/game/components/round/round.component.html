@@ -5,7 +5,18 @@
       <div>{{ time }}</div>
     </div>
     <div class="col-12">
-      <ng-container *ngIf="active; else guessBox"> Active </ng-container>
+      <ng-container *ngIf="active; else guessBox">
+        <div>
+          <input
+            class="form-control"
+            [(ngModel)]="answer"
+            type="text"
+            name="answer"
+            (ngModelChange)="updateAnswer()"
+          />
+        </div>
+        <app-emoji-keyboard (emoji)="addToAnswer($event)"></app-emoji-keyboard>
+      </ng-container>
       <ng-template #guessBox> Guess </ng-template>
     </div>
   </div>

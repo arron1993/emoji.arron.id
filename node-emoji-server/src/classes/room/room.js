@@ -25,6 +25,9 @@ class Room {
     this.activePlayerIndex = 0;
   }
 
+  _getCurrentRound() {
+    return this.rounds[this.rounds.length - 1];
+  }
   _getPlayers() {
     return Array.from(this.players);
   }
@@ -63,7 +66,7 @@ class Room {
     this.roundTimer = setInterval(() => {
       this.events.timerTick(counter);
       counter--;
-      if (counter === 0) {
+      if (counter < 0) {
         clearInterval(this.roundTimer);
       }
     }, 1000);

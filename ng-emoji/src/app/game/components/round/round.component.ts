@@ -11,6 +11,7 @@ import { RoomService } from '../../services/room.service';
 export class RoundComponent implements OnInit {
   round = null;
   time: number;
+  answer = "";
 
   active = false;
   newRoundSub: Subscription;
@@ -35,6 +36,16 @@ export class RoundComponent implements OnInit {
     this.setActiveSub = this.ps.onSetActive().subscribe(resp => {
       this.active = resp.active;
     })
+  }
+
+  updateAnswer() {
+    this.rs.updateAnswer(this.answer);    
+  }
+
+  addToAnswer(emoji) {
+    console.log(emoji)
+    this.answer += emoji;
+    // this.updateAnswer();
   }
 
 }
