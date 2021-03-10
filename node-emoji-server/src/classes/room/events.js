@@ -28,6 +28,10 @@ class RoomEventManager {
     players = players.map((player) => player._get());
     socket.emit("getPlayers", { players: players });
   }
+
+  timerTick(counter) {
+    this.emit("timerTick", { time: counter });
+  }
 }
 
 module.exports.RoomEventManager = RoomEventManager;

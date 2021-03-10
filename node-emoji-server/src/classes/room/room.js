@@ -47,26 +47,27 @@ class Room {
     this.events.getPlayers(socket, this._getPlayers());
   }
 
-  startNewRound(io) {
+  startNewRound() {
     const round = new Round(this.io, this.id);
     this.rounds.push(round);
+    this.startRoundTimer();
   }
 
   endGame(io) {
     emitEndGame(io, this.id, this.rounds);
   }
 
-  startRoundTimer(io) {
+  startRoundTimer() {
     let counter = this.roundLength;
     this.roundTimer = setInterval(() => {
-      io.sockets.emit("updateRoundTimer", { time: counter });
+      this.events.timerTick(counter);
       counter--;
       if (counter === 0) {
         clearInterval(this.roundTimer);
         if (this.rounds.length <= this.totalRounds - 1) {
-          this.startNewRound(io);
+          // this.startNewRound(io);
         } else {
-          this.endGame(io);
+          // this.endGame(io);
         }
       }
     }, 1000);

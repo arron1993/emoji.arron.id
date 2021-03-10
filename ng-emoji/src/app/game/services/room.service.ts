@@ -51,6 +51,10 @@ export class RoomService {
     return this.ss.on("startGame")
   }
 
+  onTimerTick(): Observable<any> {
+    return this.ss.on("timerTick")
+  }
+
   onNewRound(): Observable<any> {
     return this.ss.on("newRound");
   }

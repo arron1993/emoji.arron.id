@@ -1,5 +1,10 @@
 <ng-container *ngIf="round; else roundNotStarted">
-  {{ round.word }}
+  <div class="row no-gutters">
+    <div class="col-12 d-flex justify-content-between">
+      <div>{{ round.word }}</div>
+      <div>{{ time }}</div>
+    </div>
+  </div>
 </ng-container>
 
 <ng-template #roundNotStarted>

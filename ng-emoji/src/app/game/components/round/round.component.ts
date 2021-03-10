@@ -9,15 +9,21 @@ import { RoomService } from '../../services/room.service';
 })
 export class RoundComponent implements OnInit {
   round;
+  time;
+  newRoundSub: Subscription;
+  timerSub: Subscription;
 
   constructor(private rs: RoomService) { }
-
-  newRoundSub: Subscription;
 
   ngOnInit(): void {
     this.newRoundSub = this.rs.onNewRound().subscribe(resp => {
       console.log(resp)
       this.round = resp.round;
+    })
+
+    this.timerSub = this.rs.onTimerTick().subscribe(resp => {
+      console.log(resp)
+      this.time = resp.time;
     })
   }
 
