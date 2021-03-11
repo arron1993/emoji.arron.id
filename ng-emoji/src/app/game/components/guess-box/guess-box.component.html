@@ -1,0 +1,14 @@
+<div class="row no-gutters">
+  <div class="col-12" *ngFor="let guess of guesses">
+    {{ guess }}
+  </div>
+
+  <div class="col-12">
+    <form #guessForm="ngForm" (ngSubmit)="addGuess(guessForm)">
+      <div class="form-group">
+        <textarea class="form-control" ngModel name="guess"></textarea>
+      </div>
+      <button class="btn btn-outline-dark" type="submit">Submit</button>
+    </form>
+  </div>
+</div>

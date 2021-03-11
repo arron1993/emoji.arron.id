@@ -17,7 +17,9 @@
         </div>
         <app-emoji-keyboard (emoji)="addToAnswer($event)"></app-emoji-keyboard>
       </ng-container>
-      <ng-template #guessBox> Guess </ng-template>
+      <ng-template #guessBox>
+        <app-guess-box></app-guess-box>
+      </ng-template>
     </div>
   </div>
 </ng-container>

@@ -55,6 +55,14 @@ export class RoomService {
     return this.ss.on("timerTick")
   }
 
+  onAddGuess(): Observable<any> {
+    return this.ss.on("addGuess")
+  }
+
+  addGuess(guess) {
+    this.ss.emit("addGuess", {guess: guess})
+  }
+
   onNewRound(): Observable<any> {
     return this.ss.on("newRound");
   }

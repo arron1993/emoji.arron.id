@@ -20,6 +20,12 @@ class RoundEventManager {
       answer: answer,
     });
   }
+
+  addGuess(guess) {
+    this.emit("addGuess", {
+      guess: guess,
+    });
+  }
 }
 
 module.exports.RoundEventManager = RoundEventManager;

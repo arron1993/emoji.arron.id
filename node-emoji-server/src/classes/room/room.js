@@ -17,7 +17,7 @@ class Room {
 
     this.totalRounds = 5;
 
-    this.roundLength = 10;
+    this.roundLength = 120;
 
     this.rounds = [];
     this.roundTimer;
@@ -28,8 +28,13 @@ class Room {
   _getCurrentRound() {
     return this.rounds[this.rounds.length - 1];
   }
+
   _getPlayers() {
     return Array.from(this.players);
+  }
+
+  _close() {
+    clearInterval(this.roundTimer);
   }
 
   addPlayer(player) {

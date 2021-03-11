@@ -14,9 +14,10 @@ import { RoundDisplayComponent } from './components/round-display/round-display.
 import { RoundTimerComponent } from './components/round-timer/round-timer.component';
 import { StartGameButtonComponent } from './components/start-game-button/start-game-button.component';
 import { RoundComponent } from './components/round/round.component';
+import { GuessBoxComponent } from './components/guess-box/guess-box.component';
 
 @NgModule({
-  declarations: [CreateRoomPageComponent, RoomPageComponent, UserListComponent, ReadyUpButtonComponent, EmojiKeyboardComponent, JoinRoomFormComponent, ShareRoomLinkComponent, RoundDisplayComponent, RoundTimerComponent, StartGameButtonComponent, RoundComponent],
+  declarations: [CreateRoomPageComponent, RoomPageComponent, UserListComponent, ReadyUpButtonComponent, EmojiKeyboardComponent, JoinRoomFormComponent, ShareRoomLinkComponent, RoundDisplayComponent, RoundTimerComponent, StartGameButtonComponent, RoundComponent, GuessBoxComponent],
   imports: [
     CommonModule,
     FormsModule,

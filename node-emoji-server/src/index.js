@@ -42,11 +42,6 @@ io.on("connection", (socket) => {
     room.getPlayers(socket);
   });
 
-  socket.on("getPlayers", () => {
-    room = rooms[socket.player.roomId];
-    room.getPlayers(socket);
-  });
-
   socket.on("updatePlayer", (data) => {
     socket.player.update(data);
   });
@@ -69,13 +64,28 @@ io.on("connection", (socket) => {
     room.addPlayer(socket.player);
   });
 
+  socket.on("addGuess", (data) => {
+    const roomId = socket.player.roomId;
+    room = rooms[roomId];
+    room._getCurrentRound().addGuess(data.guess);
+  });
+
+  socket.on("startGame", (data) => {
+    const roomId = socket.player.roomId;
+    room = rooms[roomId];
+    room.startNewRound();
+  });
+
   socket.on("disconnecting", () => {
     if (socket.player) {
       console.log(`User ${socket.player.username} disconnecting`);
-      room = rooms[socket.player.roomId];
-      room.removePlayer(socket.player);
-      if (room._getPlayers().length === 0) {
-        delete rooms[room.id];
+      const room = rooms[socket.player.roomId];
+      if (room) {
+        room.removePlayer(socket.player);
+        if (room._getPlayers().length === 0) {
+          room._close();
+          delete rooms[room.id];
+        }
       }
     }
   });

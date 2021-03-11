@@ -19,6 +19,10 @@ class Round {
   updateAnswer(answer) {
     this.events.updateAnswer(answer);
   }
+
+  addGuess(guess) {
+    this.events.addGuess(guess);
+  }
 }
 
 exports.Round = Round;
